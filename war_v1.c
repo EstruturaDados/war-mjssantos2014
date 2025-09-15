@@ -1,20 +1,28 @@
+/* ====================================================================
+ * Estrutura de Dados
+ * PRATICA: JOGO WAR - DESAFIO NIVEL NOVATO
+ *
+ * OBJETIVO: Implementar um jogo de guerra WAR para cadastrar 5 territorios,
+ *           cor de cada territorio e numero de tropas.
+ *
+ * ====================================================================
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_TERRITORIO 5
+#define MAX_COR 10
+#define TAM_STRING 30
 
-// --- constantes globais ---
-#define MAX_LIVROS 50
-#define TAM_STRING 100
-
-// --- definiçao da estrutura ---
 typedef struct
 {
-	char nome[TAM_STRING];
-	char autor[TAM_STRING];
-	char editora[TAM_STRING];
-	int edicao;
-} Livro;
+	char nomeTerritorio[TAM_STRING];
+	char corTerritorio[MAX_COR];
+	int numeroTropas;
+} Territorio;
+
 
 // --- função para limpar o Buffer de entrada ---
 void limpabufferentrada()
@@ -24,108 +32,52 @@ void limpabufferentrada()
 		;
 }
 
-// --- função principal main ---
 
 int main()
 {
-	Livro biblioteca[MAX_LIVROS];
-	int totalLivros = 0;
-	int opcao;
+	Territorio territorio[5];
 
-	// --- laço principal do menu ---
-	do
+	printf("================================================\n");
+	printf("WAR ESTRUTURADO - CADSATRO INICIAL\n");
+	printf("================================================\n");
+
+	printf("Vamos cadastrar os 5 Territoris iniciais do nosso mundo.\n\n");
+
+	for (int i = 0; i < MAX_TERRITORIO; i++)
 	{
-		// --- exibe o Menu de opções ---
-		printf("==========================================\n");
-		printf("          BIBLIOTECA PARTE 1 \n");
-		printf("==========================================\n");
-		printf("1 - Cadastrar novo livro\n");
-		printf("2 - Listar todos os  livros\n");
-		printf("0 - sair\n");
-		printf("------------------------------------------\n");
-		printf("Escolha uma opcao: ");
+		printf("--- Cadastrando territorio %d ---\n", i + 1);
 
-		// Lê a opçao do usuario
-		scanf("%d", &opcao);
+		printf("Nome do Territorio: ");
+		fgets(territorio[i].nomeTerritorio, TAM_STRING, stdin);
+		territorio[i].nomeTerritorio[strcspn(territorio[i].nomeTerritorio, "\n")] = '\0';
 
-		limpabufferentrada(); // limpa o \n deixado pelo scanf
+		printf("cor do Exercito (ex: Azul, Verde, Amarelo): ");
+		fgets(territorio[i].corTerritorio, MAX_COR, stdin);
+		territorio[i].corTerritorio[strcspn(territorio[i].corTerritorio, "\n")] = '\0';
 
-		switch (opcao)
-		{
-		case 1: 
-			printf("--- Cadastro de novo livro ---\n\n");
+		printf("Numero de tropas: ");
+		scanf("%d", &territorio[i].numeroTropas);
+		// territorio[i].numeroTropas[strcspn(territorio[i].numeroTropas, "\n")] = '\0';
+		
+		limpabufferentrada();
+	}
 
-			if (totalLivros < MAX_LIVROS)
-			{
-				printf("Digite o nome do livro: ");
-				fgets(biblioteca[totalLivros].nome, TAM_STRING, stdin);
+	printf("================================================\n");
+	printf("MAPA DO MUNDO - ESTADO ATUAL\n");
+	printf("================================================\n");
 
-				printf("Digite o autor: ");
-				fgets(biblioteca[totalLivros].autor, TAM_STRING, stdin);
+	for (int i = 0; i < MAX_TERRITORIO; i++)
+	{
 
-				printf("Digite a editora: ");
-				fgets(biblioteca[totalLivros].editora, TAM_STRING, stdin);
+		printf("\nTERRITORIO - %d", i + 1);
 
-				biblioteca[totalLivros].nome[strcspn(biblioteca[totalLivros].nome, "\n")] = '\0';
-				biblioteca[totalLivros].autor[strcspn(biblioteca[totalLivros].autor, "\n")] = '\0';
-				biblioteca[totalLivros].editora[strcspn(biblioteca[totalLivros].editora, "\n")] = '\0';
+		printf("\t\n- Nome: %s", territorio[i].nomeTerritorio);
+		printf("\t\n- Dominado por: Exercito %s", territorio[i].corTerritorio);
+		printf("\t\n- Tropas: %d", territorio[i].numeroTropas);
+		printf("\n\n");
+	}
 
-				printf("Digite a edicao: ");
-				scanf("%d", &biblioteca[totalLivros].edicao);
-
-				limpabufferentrada();
-
-				totalLivros++;
-
-				printf("\nLivro cadastrado com sucesso!\n");
-			}
-			else
-			{
-				printf("Biblioteca cheia, nao eh possivel cadastrar mais livros!\n");
-			}
-
-			printf("Precione uma tecla para continuar...\n");
-			getchar();
-			break;
-
-		case 2: 
-			printf("--- Lista de livros cadastrados ---\n\n");
-
-			if (totalLivros == 0)
-			{
-				printf("Nenhum livro cadastrado ainda!\n");
-			}
-			else
-			{
-				for (int i = 0; i < totalLivros; i++)
-				{
-					printf("--------------------------\n");
-					printf("LIVRO: %d\n", i + 1);
-					printf("Nome: %s\n", biblioteca[i].nome);
-					printf("Nome: %s\n", biblioteca[i].autor);
-					printf("Nome: %s\n", biblioteca[i].editora);
-					printf("Nome: %s\n", biblioteca[i].edicao);
-				}
-
-				printf("--------------------------\n");
-			}
-
-			printf("Precione uma tecla para continuar...\n");
-			getchar();
-			break;
-
-		case 0: 
-			printf("saindo do sistema...\n");
-			break;
-
-		default: 
-			printf("\nopcao invalida! Tente novamente.\n");
-			printf("Precione uma tecla para continuar...\n");
-			getchar();
-			break;
-		}
-
-	} while (opcao != 0);
+	getchar();
 
 	return 0;
 }
