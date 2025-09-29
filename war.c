@@ -1,6 +1,6 @@
 /* ====================================================================
  * Estrutura de Dados
- * PRATICA: JOGO WAR - DESAFIO NIVEL NOVATO
+ * PRATICA: JOGO WAR - DESAFIO NIVEL NOVATO v1.0
  *
  * OBJETIVO: Implementar um jogo de guerra WAR para cadastrar 5 territorios,
  *           cor de cada territorio e numero de tropas.
